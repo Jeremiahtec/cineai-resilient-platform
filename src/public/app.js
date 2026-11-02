@@ -380,8 +380,6 @@ window.playVideo = function(videoId, hlsMasterUrl, status, filename = 'Active Fi
       telemetryRendition.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)} kbps)`;
       if (playerResolutionBadge) playerResolutionBadge.textContent = `${level.height}p · ${Math.round(level.bitrate / 1000)} kbps`;
     });
-      telemetryRendition.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)} kbps)`;
-    });
 
     // Quality selector listener
     qualitySelect.onchange = () => {
