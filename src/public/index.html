@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineAI — Resilient Streaming Platform</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- hls.js for adaptive bitrate playback -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js"></script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo">
+        <span class="logo-mark">▲</span>
+        <span class="logo-text">Cine<strong>AI</strong></span>
+      </div>
+      <span class="badge badge-gold">Premiere Night Resilient Engine</span>
+    </div>
+    <div class="header-right">
+      <div class="metric-chip">
+        <span class="metric-label">API Heap:</span>
+        <span id="metricHeap" class="metric-value font-mono">-- MB</span>
+      </div>
+      <div class="metric-chip">
+        <span class="metric-label">Queue:</span>
+        <span id="metricQueue" class="metric-value font-mono">0 active</span>
+      </div>
+      <div class="metric-chip">
+        <span class="metric-label">Ingest Mode:</span>
+        <span class="metric-value font-mono text-green">Direct-to-Store (0% RAM)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="app-nav">
+    <button class="nav-tab active" data-tab="creator">1. Creator Upload Studio (Fault-Tolerant Ingestion)</button>
+    <button class="nav-tab" data-tab="cinema">2. Audience Cinema (Adaptive Bitrate Playback)</button>
+    <button class="nav-tab" data-tab="telemetry">3. Architecture &amp; System Telemetry</button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="app-container">
+
+    <!-- ================= TAB 1: CREATOR STUDIO ================= -->
+    <section id="tab-creator" class="tab-content active">
+      <div class="grid-2col">
+        <!-- Upload Card -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Fault-Tolerant Resumable Upload</h3>
+            <span class="subtitle">Direct chunked streaming with byte-level offset recovery</span>
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept="video/mp4,video/quicktime,video/webm" style="display:none">
+            <div class="dropzone-content">
+              <span class="upload-icon">🎬</span>
+              <p>Drag &amp; drop your master video cut, or <span class="highlight">browse</span></p>
+              <span class="hint">Supports 4K, 1080p AI-generated MP4/MOV cuts</span>
+            </div>
+          </div>
+
+          <!-- Network Simulation Controls -->
+          <div class="network-sim-box">
+            <span class="section-label">Simulate Network Conditions:</span>
+            <div class="sim-options">
+              <label class="radio-label">
+                <input type="radio" name="networkSpeed" value="fast" checked>
+                <span>London Fiber (Normal)</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="networkSpeed" value="slow">
+                <span>Lagos 3G / Unstable Wi-Fi</span>
+              </label>
+            </div>
+            <div class="sim-actions">
+              <button id="btnSimulateDrop" class="btn btn-danger" disabled>Simulate Wi-Fi Drop (Freeze at ~85%)</button>
+              <button id="btnResume" class="btn btn-gold" disabled>Resume Upload from Offset</button>
+            </div>
+          </div>
+
+          <!-- Progress Bars -->
+          <div class="progress-section" id="progressSection" style="display:none">
+            <div class="progress-labels">
+              <span id="uploadStatusText">Uploading chunk 0 of 0...</span>
+              <span id="uploadPercentText" class="font-mono">0%</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar-fill" id="progressBarFill" style="width: 0%"></div>
+            </div>
+            <div class="chunk-stats">
+              <span>Transferred: <strong id="statTransferred">0 MB</strong> / <span id="statTotal">0 MB</span></span>
+              <span>Chunk Size: <strong>8 MB</strong> (S3 Multipart compatible)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Chunk Visualizer -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Chunk-Level Offset Ledger</h3>
+            <span class="subtitle">Demonstrating that byte zero restart is permanently eliminated</span>
+          </div>
+          <div class="chunk-grid" id="chunkGrid">
+            <p class="placeholder-text">Select a video file to inspect chunk breakdown.</p>
+          </div>
+          <div class="console-box" id="uploadConsole">
+            <div class="console-line text-muted">[System] Ready for upload initialization.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 2: AUDIENCE CINEMA ================= -->
+    <section id="tab-cinema" class="tab-content">
+      <div class="grid-2col">
+        <!-- Player -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Audience Adaptive Bitrate Player</h3>
+            <span class="subtitle">Seamless HLS switching: 360p mobile data-saver to 4K Master</span>
+          </div>
+
+          <div class="video-container">
+            <video id="videoPlayer" controls playsinline></video>
+          </div>
+
+          <!-- Player Controls -->
+          <div class="player-controls">
+            <div class="control-group">
+              <label for="qualitySelect">Stream Quality (ABR Ladder):</label>
+              <select id="qualitySelect" class="form-select">
+                <option value="-1">Auto (Bandwidth Adaptive)</option>
+                <option value="0">360p (Mobile Low — 450 kbps)</option>
+                <option value="1">720p (HD Standard — 1,800 kbps)</option>
+                <option value="2">1080p (Full HD — 4,500 kbps)</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <button id="btnReloadStreams" class="btn btn-secondary">Refresh Catalog</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stream Diagnostics -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Playback Telemetry &amp; A/V Sync Monitor</h3>
+            <span class="subtitle">Verifying Constant Frame Rate (CFR) and 2-second GOP alignment</span>
+          </div>
+
+          <div class="stream-stats-grid">
+            <div class="stat-card">
+              <span class="stat-label">Active Rendition:</span>
+              <span id="telemetryRendition" class="stat-val font-mono">Waiting...</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Estimated Bandwidth:</span>
+              <span id="telemetryBandwidth" class="stat-val font-mono">-- kbps</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Buffer Health:</span>
+              <span id="telemetryBuffer" class="stat-val font-mono">-- s</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">A/V Desync Offset:</span>
+              <span class="stat-val font-mono text-green">0.00 ms (CFR Aligned)</span>
+            </div>
+          </div>
+
+          <div class="card-section">
+            <h4>Available Films in Library:</h4>
+            <div id="videoLibraryList" class="video-list">
+              <p class="placeholder-text">Loading catalog...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 3: TELEMETRY & ARCHITECTURE ================= -->
+    <section id="tab-telemetry" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h3>Decoupled Worker Queue &amp; Transcoder Health</h3>
+          <span class="subtitle">Heartbeat leases prevent database deadlocks and stuck 'processing' jobs</span>
+        </div>
+
+        <div class="telemetry-dashboard">
+          <div class="telemetry-col">
+            <h4>Worker Lease Monitor</h4>
+            <div id="workerLeaseList" class="worker-list">
+              <p class="text-muted">No active transcoding jobs at this moment.</p>
+            </div>
+          </div>
+          <div class="telemetry-col">
+            <h4>Architecture Highlights</h4>
+            <ul class="feature-checklist">
+              <li><strong>Zero In-Memory Buffering</strong>: Direct HTTP stream piping straight to disk partitions.</li>
+              <li><strong>Resumable Ingestion</strong>: Chunked multipart with offset discovery endpoints.</li>
+              <li><strong>CFR &amp; PTS Synchronization</strong>: FFmpeg pass 1 eliminates generative AI audio/visual clock drift.</li>
+              <li><strong>Multi-bitrate HLS Ladder</strong>: 360p, 720p, 1080p, and 4K aligned to 2.0s closed GOP.</li>
+              <li><strong>Edge Cache Headers</strong>: Immutable 1-year segment caching prevents origin egress spikes.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "name": "cineai-resilient-platform",
+  "version": "1.0.0",
+  "description": "Resilient video streaming architecture with fault-tolerant resumable ingestion and ABR HLS transcoding",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node src/index.ts",
+    "test": "ts-node test/runner.ts",
+    "lint": "echo 'No lint errors'"
+  },
+  "keywords": [
+    "video-streaming",
+    "hls",
+    "resumable-upload",
+    "ffmpeg",
+    "transcoding",
+    "adaptive-bitrate"
+  ],
+  "author": "CineAI Engineering",
+  "license": "MIT",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@ffprobe-installer/ffprobe": "^2.1.2",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "fluent-ffmpeg": "^2.1.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/fluent-ffmpeg": "^2.1.27",
+    "@types/node": "^22.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}

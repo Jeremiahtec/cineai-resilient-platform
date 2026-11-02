@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: cineai-platform
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - NODE_ENV=production
+      - MASTER_STORAGE_PATH=/data/master
+      - PROCESSED_STORAGE_PATH=/data/processed
+    volumes:
+      - cineai-master-data:/data/master
+      - cineai-processed-data:/data/processed
+    restart: unless-stopped
+
+volumes:
+  cineai-master-data:
+  cineai-processed-data:

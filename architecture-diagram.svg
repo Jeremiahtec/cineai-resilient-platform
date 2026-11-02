@@ -1,0 +1,270 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 950" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070a12" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#fbbf24" />
+    </linearGradient>
+
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+
+    <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+    </marker>
+
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1400" height="950" fill="url(#bgGrad)" />
+
+  <!-- Subtle Grid Lines -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.75" stroke-opacity="0.4" />
+  </pattern>
+  <rect width="1400" height="950" fill="url(#grid)" />
+
+  <!-- Header Section -->
+  <g transform="translate(60, 45)">
+    <rect x="0" y="0" width="165" height="28" rx="14" fill="#f59e0b" fill-opacity="0.15" stroke="#f59e0b" stroke-width="1.2" />
+    <text x="82.5" y="18" fill="#fbbf24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" text-anchor="middle">BLUEPRINT CHALLENGE</text>
+
+    <text x="0" y="65" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800">CineAI Resilient Video Platform Architecture</text>
+    <text x="0" y="90" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14">End-to-End Resumable Ingestion, Decoupled Transcoding &amp; Adaptive Bitrate HLS Distribution</text>
+  </g>
+
+  <!-- ==================== COLUMN 1: INGESTION TIER ==================== -->
+  <g transform="translate(60, 160)">
+    <!-- Section Container -->
+    <rect width="380" height="740" rx="16" fill="#0b1120" stroke="#1e293b" stroke-width="1.5" />
+    <rect width="380" height="42" rx="16" fill="#1e293b" fill-opacity="0.6" />
+    <text x="20" y="26" fill="#38bdf8" font-family="sans-serif" font-size="13" font-weight="700" letter-spacing="1">1. FAULT-TOLERANT INGESTION</text>
+
+    <!-- Creator Client Card -->
+    <g transform="translate(20, 60)">
+      <rect width="340" height="150" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#f59e0b" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#f59e0b" font-family="sans-serif" font-size="14" text-anchor="middle">🎬</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Creator Upload Client</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">London to Lagos (Unstable Wi-Fi / 4G)</text>
+
+      <rect x="20" y="68" width="300" height="66" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="87" fill="#94a3b8" font-family="monospace" font-size="11">✓ S3 Multipart / Tus Client SDK</text>
+      <text x="30" y="104" fill="#94a3b8" font-family="monospace" font-size="11">✓ 8MB Chunks + SHA-256 Digest</text>
+      <text x="30" y="121" fill="#34d399" font-family="monospace" font-size="11">✓ Offset Resume (0% Restart Eliminated)</text>
+    </g>
+
+    <!-- API Gateway Card -->
+    <g transform="translate(20, 245)">
+      <rect width="340" height="135" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#38bdf8" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#38bdf8" font-family="sans-serif" font-size="14" text-anchor="middle">⚡</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Stateless CineAI API</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">Zero Video Bytes in App Heap (No OOM)</text>
+
+      <rect x="20" y="68" width="300" height="52" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="88" fill="#94a3b8" font-family="monospace" font-size="11">POST /api/v1/uploads/init</text>
+      <text x="30" y="105" fill="#94a3b8" font-family="monospace" font-size="11">Issues Presigned Part URLs</text>
+    </g>
+
+    <!-- Master S3 Storage Card -->
+    <g transform="translate(20, 420)">
+      <rect width="340" height="140" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#a855f7" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#a855f7" font-family="sans-serif" font-size="14" text-anchor="middle">📦</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Master Object Storage</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">S3 / MinIO / Cloudflare R2</text>
+
+      <rect x="20" y="68" width="300" height="56" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="88" fill="#94a3b8" font-family="monospace" font-size="11">• Direct-to-bucket chunk storage</text>
+      <text x="30" y="105" fill="#38bdf8" font-family="monospace" font-size="11">• Emits 'ObjectCreated' webhook</text>
+    </g>
+
+    <!-- Metadata DB Card -->
+    <g transform="translate(20, 595)">
+      <rect width="340" height="115" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#64748b" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#94a3b8" font-family="sans-serif" font-size="14" text-anchor="middle">🗄️</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">PostgreSQL Metadata DB</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">Clean State Machine (No Row Locks)</text>
+      <text x="30" y="85" fill="#34d399" font-family="monospace" font-size="11">States: INITIALIZING → UPLOADED → READY</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: PROCESSING & TRANSCODING ==================== -->
+  <g transform="translate(480, 160)">
+    <!-- Section Container -->
+    <rect width="440" height="740" rx="16" fill="#0b1120" stroke="#1e293b" stroke-width="1.5" />
+    <rect width="440" height="42" rx="16" fill="#1e293b" fill-opacity="0.6" />
+    <text x="20" y="26" fill="#f59e0b" font-family="sans-serif" font-size="13" font-weight="700" letter-spacing="1">2. ASYNCHRONOUS TRANSCODING PIPELINE</text>
+
+    <!-- Message Queue Card -->
+    <g transform="translate(25, 60)">
+      <rect width="390" height="110" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#ef4444" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#ef4444" font-family="sans-serif" font-size="14" text-anchor="middle">📥</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Redis / BullMQ Priority Queue</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">Decouples Upload Spikes from Transcoding</text>
+
+      <rect x="20" y="65" width="350" height="32" rx="6" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="85" fill="#94a3b8" font-family="monospace" font-size="11">Dead Letter Queue (DLQ) + 3 Max Retries</text>
+    </g>
+
+    <!-- Worker Fleet Container -->
+    <g transform="translate(25, 195)">
+      <rect width="390" height="380" rx="12" fill="url(#cardGrad)" stroke="#f59e0b" stroke-width="1.5" />
+      <circle cx="35" cy="35" r="15" fill="#f59e0b" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#f59e0b" font-family="sans-serif" font-size="14" text-anchor="middle">⚙️</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">FFmpeg Transcoder Fleet</text>
+      <text x="62" y="48" fill="#fbbf24" font-family="sans-serif" font-size="11">Distributed Workers with Heartbeat Leases (TTL 30s)</text>
+
+      <!-- Pass 1 Box -->
+      <g transform="translate(20, 68)">
+        <rect width="350" height="85" rx="8" fill="#0f172a" stroke="#334155" />
+        <text x="15" y="24" fill="#38bdf8" font-family="sans-serif" font-size="12" font-weight="700">PASS 1: Stream Probing &amp; A/V Normalization</text>
+        <text x="15" y="45" fill="#94a3b8" font-family="monospace" font-size="10">• -vsync cfr (Forces Constant 24/30 FPS)</text>
+        <text x="15" y="62" fill="#94a3b8" font-family="monospace" font-size="10">• -fflags +genpts (Realigns Desynced AI Clocks)</text>
+        <text x="15" y="77" fill="#94a3b8" font-family="monospace" font-size="10">• AAC 48kHz Stereo Audio Resampling</text>
+      </g>
+
+      <!-- Pass 2 Box -->
+      <g transform="translate(20, 165)">
+        <rect width="350" height="195" rx="8" fill="#0f172a" stroke="#334155" />
+        <text x="15" y="24" fill="#34d399" font-family="sans-serif" font-size="12" font-weight="700">PASS 2: Multi-Rendition HLS Packaging</text>
+        
+        <!-- Ladder Items -->
+        <rect x="15" y="38" width="320" height="30" rx="4" fill="#1e293b" />
+        <text x="25" y="57" fill="#fbbf24" font-family="sans-serif" font-size="11" font-weight="700">360p (Mobile Low)</text>
+        <text x="200" y="57" fill="#94a3b8" font-family="monospace" font-size="10">450 kbps | 2s GOP</text>
+
+        <rect x="15" y="74" width="320" height="30" rx="4" fill="#1e293b" />
+        <text x="25" y="93" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="700">720p (Standard HD)</text>
+        <text x="200" y="93" fill="#94a3b8" font-family="monospace" font-size="10">1,800 kbps | 2s GOP</text>
+
+        <rect x="15" y="110" width="320" height="30" rx="4" fill="#1e293b" />
+        <text x="25" y="129" fill="#a855f7" font-family="sans-serif" font-size="11" font-weight="700">1080p (Full HD)</text>
+        <text x="200" y="129" fill="#94a3b8" font-family="monospace" font-size="10">4,500 kbps | 2s GOP</text>
+
+        <rect x="15" y="146" width="320" height="30" rx="4" fill="#1e293b" />
+        <text x="25" y="165" fill="#ec4899" font-family="sans-serif" font-size="11" font-weight="700">4K (Cinematic Master)</text>
+        <text x="200" y="165" fill="#94a3b8" font-family="monospace" font-size="10">14,000 kbps | 2s GOP</text>
+      </g>
+    </g>
+
+    <!-- Processed Storage Card -->
+    <g transform="translate(25, 595)">
+      <rect width="390" height="115" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#34d399" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#34d399" font-family="sans-serif" font-size="14" text-anchor="middle">✨</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Processed HLS Media Store</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">Origin Bucket for Edge Distribution</text>
+      <text x="30" y="85" fill="#94a3b8" font-family="monospace" font-size="11">• master.m3u8 index manifest</text>
+      <text x="30" y="102" fill="#94a3b8" font-family="monospace" font-size="11">• 2.0s media segments (.m4s / .ts)</text>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: DISTRIBUTION & STREAMING ==================== -->
+  <g transform="translate(960, 160)">
+    <!-- Section Container -->
+    <rect width="380" height="740" rx="16" fill="#0b1120" stroke="#1e293b" stroke-width="1.5" />
+    <rect width="380" height="42" rx="16" fill="#1e293b" fill-opacity="0.6" />
+    <text x="20" y="26" fill="#34d399" font-family="sans-serif" font-size="13" font-weight="700" letter-spacing="1">3. EDGE DELIVERY &amp; PLAYBACK</text>
+
+    <!-- Global CDN Card -->
+    <g transform="translate(20, 60)">
+      <rect width="340" height="175" rx="12" fill="url(#cardGrad)" stroke="#34d399" stroke-width="1.5" />
+      <circle cx="35" cy="35" r="15" fill="#34d399" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#34d399" font-family="sans-serif" font-size="14" text-anchor="middle">🌐</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Global Anycast CDN</text>
+      <text x="62" y="48" fill="#34d399" font-family="sans-serif" font-size="11">&gt; 95% Edge Cache Hit Ratio</text>
+
+      <rect x="20" y="68" width="300" height="92" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="88" fill="#38bdf8" font-family="monospace" font-size="11">Origin Shielding &amp; Coalescing</text>
+      <text x="30" y="105" fill="#94a3b8" font-family="monospace" font-size="10">Prevents premiere drop Thundering Herd</text>
+      <text x="30" y="125" fill="#fbbf24" font-family="monospace" font-size="10">Segments: Cache-Control: max-age=1y</text>
+      <text x="30" y="142" fill="#94a3b8" font-family="monospace" font-size="10">Manifests: Cache-Control: max-age=60s</text>
+    </g>
+
+    <!-- Mobile Viewer Card -->
+    <g transform="translate(20, 280)">
+      <rect width="340" height="185" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#f59e0b" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#f59e0b" font-family="sans-serif" font-size="14" text-anchor="middle">📱</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Mobile Viewer (Lagos / 3G)</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">Constrained Cellular Bandwidth</text>
+
+      <rect x="20" y="68" width="300" height="100" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="88" fill="#34d399" font-family="monospace" font-size="11">✓ Auto-selects 360p / 720p</text>
+      <text x="30" y="106" fill="#94a3b8" font-family="monospace" font-size="10">✓ TTFF: &lt; 800ms (Fast Start)</text>
+      <text x="30" y="124" fill="#94a3b8" font-family="monospace" font-size="10">✓ Rebuffering Ratio: &lt; 0.5%</text>
+      <text x="30" y="145" fill="#34d399" font-family="monospace" font-size="10">✓ Data consumed: ~35MB per 10min</text>
+    </g>
+
+    <!-- Fiber Viewer Card -->
+    <g transform="translate(20, 500)">
+      <rect width="340" height="185" rx="12" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" />
+      <circle cx="35" cy="35" r="15" fill="#38bdf8" fill-opacity="0.2" />
+      <text x="35" y="40" fill="#38bdf8" font-family="sans-serif" font-size="14" text-anchor="middle">🖥️</text>
+      <text x="62" y="32" fill="#ffffff" font-family="sans-serif" font-size="15" font-weight="700">Fiber Viewer (London / Gigabit)</text>
+      <text x="62" y="48" fill="#64748b" font-family="sans-serif" font-size="11">High-Speed Broadband / 4K Screen</text>
+
+      <rect x="20" y="68" width="300" height="100" rx="8" fill="#0f172a" stroke="#1e293b" />
+      <text x="30" y="88" fill="#34d399" font-family="monospace" font-size="11">✓ Auto-selects 1080p / 4K</text>
+      <text x="30" y="106" fill="#38bdf8" font-family="monospace" font-size="10">✓ Zero A/V Desync (CFR Aligned)</text>
+      <text x="30" y="124" fill="#94a3b8" font-family="monospace" font-size="10">✓ Pristine 14 Mbps Bitrate</text>
+      <text x="30" y="145" fill="#34d399" font-family="monospace" font-size="10">✓ Smooth 60 FPS Presentation</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW CONNECTORS & ARROWS ==================== -->
+  <!-- 1. Client to API (Presigned Init) -->
+  <path d="M 230 220 L 230 245" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="240" y="235" fill="#38bdf8" font-family="sans-serif" font-size="10">1. Init</text>
+
+  <!-- 2. Direct Upload: Client to Master Storage (Bypasses API!) -->
+  <path d="M 120 220 C 80 320, 80 380, 120 420" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arrowGold)" />
+  <text x="50" y="325" fill="#f59e0b" font-family="sans-serif" font-size="10" font-weight="700">2. Direct Chunks</text>
+
+  <!-- 3. Master Storage to Redis Queue (Event Trigger) -->
+  <path d="M 380 490 C 430 490, 440 220, 505 220" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="400" y="360" fill="#ef4444" font-family="sans-serif" font-size="10">3. ObjectCreated</text>
+
+  <!-- 4. Queue to Worker -->
+  <path d="M 700 270 L 700 355" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrowGold)" />
+  <text x="710" y="315" fill="#fbbf24" font-family="sans-serif" font-size="10">4. Pull Job</text>
+
+  <!-- 5. Worker to Processed Store -->
+  <path d="M 700 735 L 700 755" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text x="710" y="747" fill="#34d399" font-family="sans-serif" font-size="10">5. Write HLS</text>
+
+  <!-- 6. Processed Store to CDN -->
+  <path d="M 915 810 C 970 810, 950 310, 980 310" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text x="925" y="550" fill="#34d399" font-family="sans-serif" font-size="10">6. Edge Ingest</text>
+
+  <!-- 7. CDN to Mobile & Fiber Viewers -->
+  <path d="M 1150 235 L 1150 280" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 1150 465 L 1150 500" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+</svg>
