@@ -4,7 +4,7 @@
   "description": "Resilient video streaming architecture with fault-tolerant resumable ingestion and ABR HLS transcoding",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && node -e \"require('fs').cpSync('src/public', 'dist/public', {recursive: true})\"",
     "start": "ts-node src/index.ts",
     "dev": "ts-node src/index.ts",
     "test": "ts-node test/runner.ts",

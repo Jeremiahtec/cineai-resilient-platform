@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { CONFIG } from './config';
 import { uploadRouter } from './api/upload.routes';
 import { playbackRouter } from './api/playback.routes';
@@ -15,8 +16,11 @@ app.use(cors());
 // Parse JSON metadata payloads only (Note: video chunks stream directly via req without JSON buffering!)
 app.use(express.json({ limit: '1mb' }));
 
-// Serve static frontend assets
-app.use(express.static(path.join(__dirname, 'public')));
+// Serve static frontend assets (supports both ts-node and compiled dist execution)
+const publicDir = fs.existsSync(path.join(__dirname, 'public'))
+  ? path.join(__dirname, 'public')
+  : path.join(process.cwd(), 'src', 'public');
+app.use(express.static(publicDir));
 
 // Mount API Routers
 app.use('/api/v1/uploads', uploadRouter);
