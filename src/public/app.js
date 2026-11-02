@@ -275,7 +275,7 @@ btnSimulateDrop.addEventListener('click', () => {
   if (uploadAbortController) {
     uploadAbortController.abort();
   }
-  logConsole('⚠️ [NETWORK DROP SIMULATION] Wi-Fi connection collapsed at current byte offset!', 'error');
+  logConsole('[NETWORK DROP SIMULATION] Wi-Fi connection collapsed at current byte offset!', 'error');
   uploadStatusText.textContent = 'Upload FROZEN due to simulated network disconnect.';
   btnSimulateDrop.disabled = true;
   btnResume.disabled = false;
@@ -288,7 +288,7 @@ btnResume.addEventListener('click', async () => {
   btnResume.disabled = true;
   btnSimulateDrop.disabled = false;
 
-  logConsole('🔄 Resuming upload... Querying offset discovery endpoint...');
+  logConsole('[RESUME] Resuming upload... Querying offset discovery endpoint...');
   await transmitChunks(currentFile, currentUploadId);
 });
 
@@ -303,12 +303,12 @@ function pollTranscodeStatus(uploadId) {
 
       if (data.status === 'PROCESSING' && !loggedProcessing) {
         loggedProcessing = true;
-        logConsole('⚙️ Worker claimed job: Transcoding multi-bitrate HLS ladder (360p, 720p, 1080p)...');
+        logConsole('[WORKER] Worker claimed job: Transcoding multi-bitrate HLS ladder (360p, 720p, 1080p)...');
       }
 
       if (data.status === 'PUBLISHED') {
         clearInterval(timer);
-        logConsole(`🎉 Film successfully normalized and published! Ready for HLS streaming.`, 'success');
+        logConsole(`[PUBLISHED] Film successfully normalized and published! Ready for HLS streaming.`, 'success');
         uploadStatusText.textContent = 'PUBLISHED & READY TO STREAM';
         loadVideoLibrary();
       } else if (data.status === 'FAILED') {
@@ -335,7 +335,12 @@ async function loadVideoLibrary() {
     videoLibraryList.innerHTML = videos.map(v => `
       <div class="video-item" onclick="playVideo('${v.id}', '${v.hlsMasterUrl || ''}', '${v.status}', '${v.filename}')">
         <div>
-          <div class="video-meta-title">🎬 ${v.filename}</div>
+          <div class="video-meta-title">
+            <svg class="ui-svg text-gold" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            ${v.filename}
+          </div>
           <div class="video-meta-sub font-mono">Session ID: ${v.id} · Size: ${(v.sizeBytes / 1024 / 1024).toFixed(1)} MB</div>
         </div>
         <span class="chip ${v.status === 'PUBLISHED' ? 'chip-gold' : 'chip-cyan'}">${v.status}</span>
@@ -408,3 +413,41 @@ setInterval(() => {
 }, 1000);
 
 btnReloadStreams.addEventListener('click', loadVideoLibrary);
+
+// 10. Platform Guide & Technical FAQs Slide-Over Drawer
+const btnOpenFaq = document.getElementById('btnOpenFaq');
+const btnCloseFaq = document.getElementById('btnCloseFaq');
+const faqModalOverlay = document.getElementById('faqModalOverlay');
+
+function openFaqModal() {
+  if (faqModalOverlay) {
+    faqModalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeFaqModal() {
+  if (faqModalOverlay) {
+    faqModalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+if (btnOpenFaq) {
+  btnOpenFaq.addEventListener('click', openFaqModal);
+}
+if (btnCloseFaq) {
+  btnCloseFaq.addEventListener('click', closeFaqModal);
+}
+if (faqModalOverlay) {
+  faqModalOverlay.addEventListener('click', (e) => {
+    if (e.target === faqModalOverlay) {
+      closeFaqModal();
+    }
+  });
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && faqModalOverlay && faqModalOverlay.classList.contains('active')) {
+    closeFaqModal();
+  }
+});

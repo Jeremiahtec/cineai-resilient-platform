@@ -23,7 +23,9 @@
     <div class="header-left">
       <div class="logo">
         <div class="logo-icon-wrap">
-          <span class="logo-mark">▲</span>
+          <svg class="nav-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 22 22 22"></polygon>
+          </svg>
         </div>
         <div class="logo-text-wrap">
           <span class="logo-title">CINE<strong>AI</strong></span>
@@ -53,6 +55,16 @@
         <span class="pill-label">Ingest:</span>
         <span class="pill-val font-mono text-emerald">Direct-to-Store (0% RAM)</span>
       </div>
+
+      <!-- FAQ / Help Trigger Button -->
+      <button id="btnOpenFaq" class="btn-faq" title="Platform Guide &amp; FAQs" aria-label="Platform Guide and FAQs">
+        <svg class="btn-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+        <span>Guide &amp; FAQs</span>
+      </button>
     </div>
   </header>
 
@@ -60,17 +72,39 @@
   <nav class="app-nav">
     <div class="nav-container">
       <button class="nav-tab active" data-tab="creator">
-        <span class="tab-icon">🎬</span>
+        <span class="tab-icon">
+          <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
+        </span>
         <span>1. Creator Ingestion Studio</span>
         <span class="tab-badge">Resumable</span>
       </button>
       <button class="nav-tab" data-tab="cinema">
-        <span class="tab-icon">🍿</span>
+        <span class="tab-icon">
+          <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+            <polygon points="10 8 16 10 10 12"></polygon>
+          </svg>
+        </span>
         <span>2. Audience Cinema</span>
         <span class="tab-badge">ABR HLS</span>
       </button>
       <button class="nav-tab" data-tab="telemetry">
-        <span class="tab-icon">⚡</span>
+        <span class="tab-icon">
+          <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </span>
         <span>3. Architecture &amp; System Telemetry</span>
         <span class="tab-badge">Live</span>
       </button>
@@ -99,7 +133,11 @@
             <div class="dropzone-ambient"></div>
             <div class="dropzone-content">
               <div class="upload-icon-circle">
-                <span class="upload-icon">📹</span>
+                <svg class="action-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="17 8 12 3 7 8"></polyline>
+                  <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
               </div>
               <h4 class="dropzone-title">Drop your master video cut here</h4>
               <p class="dropzone-sub">or <span class="highlight-action">browse local files</span></p>
@@ -123,7 +161,13 @@
               <label class="seg-btn">
                 <input type="radio" name="networkSpeed" value="fast" checked>
                 <span class="seg-content">
-                  <span class="seg-icon">🌐</span>
+                  <span class="seg-icon">
+                    <svg class="ui-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                  </span>
                   <span class="seg-text">London Fiber <em>(Ultra Fast)</em></span>
                 </span>
               </label>
@@ -131,7 +175,14 @@
               <label class="seg-btn">
                 <input type="radio" name="networkSpeed" value="slow">
                 <span class="seg-content">
-                  <span class="seg-icon">📶</span>
+                  <span class="seg-icon">
+                    <svg class="ui-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                      <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                      <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                      <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                    </svg>
+                  </span>
                   <span class="seg-text">Lagos 3G <em>(Unstable Wi-Fi)</em></span>
                 </span>
               </label>
@@ -139,11 +190,27 @@
 
             <div class="sim-actions-row">
               <button id="btnSimulateDrop" class="btn btn-danger-glow" disabled>
-                <span class="btn-icon">⚡</span>
+                <span class="btn-icon">
+                  <svg class="btn-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                    <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+                    <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+                    <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+                    <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                    <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                  </svg>
+                </span>
                 <span>Simulate Wi-Fi Drop (Freeze ~85%)</span>
               </button>
               <button id="btnResume" class="btn btn-gold-glow" disabled>
-                <span class="btn-icon">🔄</span>
+                <span class="btn-icon">
+                  <svg class="btn-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                </span>
                 <span>Resume from Byte Offset</span>
               </button>
             </div>
@@ -250,7 +317,12 @@
             </div>
             <div class="control-group">
               <button id="btnReloadStreams" class="btn btn-secondary-glass">
-                <span>↻ Refresh Catalog</span>
+                <svg class="btn-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <polyline points="1 20 1 14 7 14"></polyline>
+                  <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                </svg>
+                <span>Refresh Catalog</span>
               </button>
             </div>
           </div>
@@ -338,7 +410,12 @@
             </div>
             <div class="feature-grid">
               <div class="feature-card">
-                <div class="feature-icon">🛡️</div>
+                <div class="feature-icon">
+                  <svg class="feat-svg text-emerald" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <polyline points="9 12 11 14 15 10"></polyline>
+                  </svg>
+                </div>
                 <div class="feature-body">
                   <strong>Zero In-Memory Buffering</strong>
                   <p>Direct HTTP stream pipe to storage eliminates API OOM crashes and 504 timeouts.</p>
@@ -346,7 +423,11 @@
               </div>
 
               <div class="feature-card">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon">
+                  <svg class="feat-svg text-gold" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
                 <div class="feature-body">
                   <strong>Fault-Tolerant Offset Resumption</strong>
                   <p>8MB chunk ledger allows creators on unstable Wi-Fi to resume from byte X without restarting from zero.</p>
@@ -354,7 +435,13 @@
               </div>
 
               <div class="feature-card">
-                <div class="feature-icon">🔄</div>
+                <div class="feature-icon">
+                  <svg class="feat-svg text-cyan" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                </div>
                 <div class="feature-body">
                   <strong>Generative AI A/V Clock Alignment</strong>
                   <p>FFmpeg Pass 1 forces Constant Frame Rate (24 FPS) and 48kHz audio resampling to fix desync.</p>
@@ -362,7 +449,13 @@
               </div>
 
               <div class="feature-card">
-                <div class="feature-icon">📶</div>
+                <div class="feature-icon">
+                  <svg class="feat-svg text-emerald" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="20" x2="12" y2="10"></line>
+                    <line x1="18" y1="20" x2="18" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="16"></line>
+                  </svg>
+                </div>
                 <div class="feature-body">
                   <strong>Adaptive Bitrate Streaming</strong>
                   <p>Multi-rendition HLS (360p, 720p, 1080p) protects mobile data caps and prevents buffering loops.</p>
@@ -375,6 +468,94 @@
     </section>
 
   </main>
+
+  <!-- ================= FAQ & GUIDE MODAL DRAWER ================= -->
+  <div id="faqModalOverlay" class="faq-modal-overlay">
+    <div class="faq-modal-drawer">
+      <div class="faq-header">
+        <div class="faq-header-title">
+          <svg class="ui-svg text-gold" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+          </svg>
+          <h3>Platform Guide &amp; Technical FAQs</h3>
+        </div>
+        <button id="btnCloseFaq" class="btn-close-modal" aria-label="Close Guide">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="faq-body">
+        <!-- Quick Start Section -->
+        <div class="faq-section">
+          <span class="faq-section-badge">How to Use the Platform</span>
+          <h4 class="faq-section-heading">Step-by-Step Testing Walkthrough</h4>
+          
+          <div class="faq-step-card">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <strong>Upload Master Video Cut</strong>
+              <p>In Tab 1, drag and drop any MP4 or MOV file. The client slices the file into 8MB chunks and streams them directly into storage, bypassing application server memory.</p>
+            </div>
+          </div>
+
+          <div class="faq-step-card">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <strong>Simulate Network Drop &amp; Resume</strong>
+              <p>Select <em>Lagos 3G</em> and click <em>"Simulate Wi-Fi Drop (Freeze ~85%)"</em> during upload. Click <em>"Resume from Byte Offset"</em> to verify that the upload resumes from the exact missing chunk without restarting from byte zero.</p>
+            </div>
+          </div>
+
+          <div class="faq-step-card">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <strong>Watch Transcoding Pipeline</strong>
+              <p>Once assembled, the job is queued for FFmpeg workers. Pass 1 forces Constant Frame Rate (24 FPS) and 48kHz audio. Pass 2 generates the 4-tier HLS ladder (360p, 720p, 1080p, 4K).</p>
+            </div>
+          </div>
+
+          <div class="faq-step-card">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <strong>Stream in Audience Cinema</strong>
+              <p>In Tab 2, click your film to stream with <code>hls.js</code>. Switch between Auto, 360p (Data Saver), and 1080p/4K while inspecting live buffer health.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical FAQs Section -->
+        <div class="faq-section">
+          <span class="faq-section-badge">Architectural Insights</span>
+          <h4 class="faq-section-heading">Frequently Asked Questions</h4>
+
+          <div class="faq-qa-item">
+            <h5>Why does direct-to-storage ingestion eliminate 504 timeouts?</h5>
+            <p>On premiere night, CineAI app servers crashed because multi-gigabyte video files were buffered in heap memory. Direct streaming pipes chunks straight to disk/object storage partitions, keeping API memory consumption strictly below 50MB.</p>
+          </div>
+
+          <div class="faq-qa-item">
+            <h5>How does the chunk ledger prevent restarting from byte zero?</h5>
+            <p>Every chunk has a deterministic part number and digest. If Wi-Fi wobbles, the client queries <code>GET /api/v1/uploads/:id/offset</code> to discover acknowledged parts and resumes from chunk X+1.</p>
+          </div>
+
+          <div class="faq-qa-item">
+            <h5>What caused the A/V desynchronization in generative AI videos?</h5>
+            <p>AI generation tools often output Variable Frame Rates (VFR) with drifting presentation timestamps. CineAI normalizes all streams to Constant Frame Rate (CFR 24 fps) and resamples audio to standard 48 kHz stereo AAC in Pass 1.</p>
+          </div>
+
+          <div class="faq-qa-item">
+            <h5>How do worker heartbeat leases prevent database deadlocks?</h5>
+            <p>Workers acquire jobs with a 30-second lease lock and heartbeat every 10 seconds. If a worker pod crashes, its lease expires, and the background reaper re-queues the job rather than leaving rows stuck on <code>processing</code>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
