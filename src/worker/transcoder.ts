@@ -69,11 +69,16 @@ export class TranscodeWorker {
 
   private async pollLoop(): Promise<void> {
     while (this.isRunning) {
-      const job = jobQueue.acquireJob(this.workerId);
-      if (job) {
-        await this.processJob(job);
-      } else {
-        // Backoff poll
+      try {
+        const job = jobQueue.acquireJob(this.workerId);
+        if (job) {
+          await this.processJob(job);
+        } else {
+          // Backoff poll
+          await new Promise(res => setTimeout(res, 1000));
+        }
+      } catch (err) {
+        console.error(`[WORKER ${this.workerId}] Unexpected loop error:`, err);
         await new Promise(res => setTimeout(res, 1000));
       }
     }
@@ -87,6 +92,7 @@ export class TranscodeWorker {
     if (session) {
       session.status = 'PROCESSING';
       session.updatedAt = Date.now();
+      storageManager.saveToDisk();
     }
 
     // Start 10-second heartbeat to extend lease
@@ -129,6 +135,7 @@ export class TranscodeWorker {
         session.status = 'PUBLISHED';
         session.hlsMasterUrl = `/hls/${job.videoId}/master.m3u8`;
         session.updatedAt = Date.now();
+        storageManager.saveToDisk();
       }
 
       jobQueue.complete(job.id);
@@ -138,6 +145,7 @@ export class TranscodeWorker {
       if (session) {
         session.status = 'FAILED';
         session.error = err.message || 'Transcode failed';
+        storageManager.saveToDisk();
       }
       jobQueue.fail(job.id, err.message || 'Transcode failed');
     } finally {

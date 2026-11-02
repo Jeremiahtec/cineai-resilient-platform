@@ -288,11 +288,17 @@ btnResume.addEventListener('click', async () => {
 
 // 8. Poll Transcode Status
 function pollTranscodeStatus(uploadId) {
+  let loggedProcessing = false;
   const timer = setInterval(async () => {
     try {
       const res = await fetch(`/api/v1/uploads/${uploadId}/status`);
       const data = await res.json();
       uploadStatusText.textContent = `Status: ${data.status}`;
+
+      if (data.status === 'PROCESSING' && !loggedProcessing) {
+        loggedProcessing = true;
+        logConsole('⚙️ Worker claimed job: Transcoding multi-bitrate HLS ladder (360p, 720p, 1080p)...');
+      }
 
       if (data.status === 'PUBLISHED') {
         clearInterval(timer);
@@ -306,7 +312,7 @@ function pollTranscodeStatus(uploadId) {
     } catch (e) {
       // ignore
     }
-  }, 2000);
+  }, 1200);
 }
 
 // 9. Audience Cinema Player & ABR Streaming

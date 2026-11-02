@@ -20,9 +20,12 @@ export interface UploadSession {
 
 export class LocalStorageManager {
   private sessions = new Map<string, UploadSession>();
+  private metadataFile: string;
 
   constructor() {
     this.ensureDirs();
+    this.metadataFile = path.join(CONFIG.MASTER_STORAGE_DIR, 'sessions_metadata.json');
+    this.loadFromDisk();
   }
 
   private ensureDirs() {
@@ -31,6 +34,36 @@ export class LocalStorageManager {
     }
     if (!fs.existsSync(CONFIG.PROCESSED_STORAGE_DIR)) {
       fs.mkdirSync(CONFIG.PROCESSED_STORAGE_DIR, { recursive: true });
+    }
+  }
+
+  public saveToDisk(): void {
+    try {
+      const serializable = Array.from(this.sessions.values()).map(s => ({
+        ...s,
+        parts: Array.from(s.parts.entries())
+      }));
+      fs.writeFileSync(this.metadataFile, JSON.stringify(serializable, null, 2), 'utf8');
+    } catch (e) {
+      // Ignore write errors during shutdown
+    }
+  }
+
+  private loadFromDisk(): void {
+    try {
+      if (fs.existsSync(this.metadataFile)) {
+        const raw = fs.readFileSync(this.metadataFile, 'utf8');
+        const parsed = JSON.parse(raw);
+        for (const item of parsed) {
+          const session: UploadSession = {
+            ...item,
+            parts: new Map(item.parts || [])
+          };
+          this.sessions.set(session.id, session);
+        }
+      }
+    } catch (e) {
+      // Start clean if corrupted
     }
   }
 
@@ -60,6 +93,7 @@ export class LocalStorageManager {
     };
 
     this.sessions.set(id, session);
+    this.saveToDisk();
     return session;
   }
 
@@ -86,6 +120,7 @@ export class LocalStorageManager {
     });
     session.status = 'UPLOADING';
     session.updatedAt = Date.now();
+    this.saveToDisk();
 
     return { partNumber, sizeBytes: stats.size };
   }
@@ -166,6 +201,7 @@ export class LocalStorageManager {
 
     session.status = 'UPLOADED';
     session.updatedAt = Date.now();
+    this.saveToDisk();
 
     return finalMasterPath;
   }
