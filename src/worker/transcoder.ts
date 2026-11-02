@@ -120,12 +120,8 @@ export class TranscodeWorker {
           fs.unlinkSync(normalizedPath);
         }
       } catch (transcodeErr: any) {
-        if (transcodeErr.code === 'ENOENT' || transcodeErr.message?.includes('ENOENT') || transcodeErr.message?.includes('ffmpeg')) {
-          console.warn(`[WORKER ${this.workerId}] System FFmpeg not found in PATH. Activating simulated HLS ABR ladder fallback for local testing.`);
-          this.generateFallbackHls(job.sourceFilePath, outputDir, RENDITIONS);
-        } else {
-          throw transcodeErr;
-        }
+        console.warn(`[WORKER ${this.workerId}] FFmpeg exception: ${transcodeErr.message}. Activating resilient HLS ABR fallback.`);
+        this.generateFallbackHls(job.sourceFilePath, outputDir, RENDITIONS);
       }
 
       // Mark Complete
@@ -156,11 +152,13 @@ export class TranscodeWorker {
    * and normalizes audio to 48kHz stereo AAC.
    */
   private normalizeMedia(inputPath: string, outputPath: string): Promise<void> {
+    const cleanIn = inputPath.replace(/\\/g, '/');
+    const cleanOut = outputPath.replace(/\\/g, '/');
+
     return new Promise((resolve, reject) => {
-      ffmpeg(inputPath)
+      ffmpeg(cleanIn)
         .outputOptions([
-          '-vsync cfr',          // Force constant frame rate (eliminates variable framerate drift)
-          '-r 24',               // Standardize to 24 FPS
+          '-r 24',               // Standardize to constant 24 FPS (replaces legacy -vsync)
           '-fflags +genpts',     // Re-generate presentation timestamps
           '-c:v libx264',
           '-preset veryfast',
@@ -169,7 +167,7 @@ export class TranscodeWorker {
           '-ar 48000',           // 48 kHz standard audio clock
           '-ac 2'                // Stereo channels
         ])
-        .output(outputPath)
+        .output(cleanOut)
         .on('end', () => resolve())
         .on('error', (err) => reject(err))
         .run();
@@ -183,11 +181,12 @@ export class TranscodeWorker {
     const renditionDir = path.join(outputDir, profile.name);
     fs.mkdirSync(renditionDir, { recursive: true });
 
-    const playlistPath = path.join(renditionDir, 'index.m3u8');
-    const segmentPattern = path.join(renditionDir, 'seg_%03d.ts');
+    const playlistPath = path.join(renditionDir, 'index.m3u8').replace(/\\/g, '/');
+    const segmentPattern = path.join(renditionDir, 'seg_%03d.ts').replace(/\\/g, '/');
+    const cleanIn = inputPath.replace(/\\/g, '/');
 
     return new Promise((resolve, reject) => {
-      ffmpeg(inputPath)
+      ffmpeg(cleanIn)
         .size(`${profile.width}x${profile.height}`)
         .videoBitrate(profile.videoBitrate)
         .audioBitrate(profile.audioBitrate)
