@@ -58,6 +58,12 @@ async function pollMetrics() {
     metricHeap.textContent = `${data.memory.heapUsedMB} MB`;
     metricQueue.textContent = `${data.queue.active} active / ${data.queue.queued} queued`;
 
+    const heapBarFill = document.getElementById('heapBarFill');
+    if (heapBarFill) {
+      const heapPct = Math.min(100, Math.round((data.memory.heapUsedMB / 250) * 100));
+      heapBarFill.style.width = `${Math.max(8, heapPct)}%`;
+    }
+
     // Update lease monitor
     const workerLeaseList = document.getElementById('workerLeaseList');
     if (workerLeaseList) {
@@ -327,12 +333,12 @@ async function loadVideoLibrary() {
     }
 
     videoLibraryList.innerHTML = videos.map(v => `
-      <div class="video-item" onclick="playVideo('${v.id}', '${v.hlsMasterUrl || ''}', '${v.status}')">
+      <div class="video-item" onclick="playVideo('${v.id}', '${v.hlsMasterUrl || ''}', '${v.status}', '${v.filename}')">
         <div>
-          <strong>${v.filename}</strong>
-          <div class="text-muted font-mono" style="font-size:11px">ID: ${v.id} | Size: ${(v.sizeBytes / 1024 / 1024).toFixed(1)} MB</div>
+          <div class="video-meta-title">🎬 ${v.filename}</div>
+          <div class="video-meta-sub font-mono">Session ID: ${v.id} · Size: ${(v.sizeBytes / 1024 / 1024).toFixed(1)} MB</div>
         </div>
-        <span class="badge ${v.status === 'PUBLISHED' ? 'badge-gold' : 'badge-secondary'}">${v.status}</span>
+        <span class="chip ${v.status === 'PUBLISHED' ? 'chip-gold' : 'chip-cyan'}">${v.status}</span>
       </div>
     `).join('');
   } catch (err) {
@@ -340,13 +346,15 @@ async function loadVideoLibrary() {
   }
 }
 
-window.playVideo = function(videoId, hlsMasterUrl, status) {
+window.playVideo = function(videoId, hlsMasterUrl, status, filename = 'Active Film') {
   if (status !== 'PUBLISHED' || !hlsMasterUrl) {
     alert(`Video #${videoId} is currently ${status}. Please wait for ABR transcoding to finish.`);
     return;
   }
 
   logConsole(`Loading HLS master manifest: ${hlsMasterUrl}`);
+  const playerResolutionBadge = document.getElementById('playerResolutionBadge');
+  if (playerResolutionBadge) playerResolutionBadge.textContent = 'Buffering ABR...';
 
   if (Hls.isSupported()) {
     if (hlsInstance) {
@@ -364,10 +372,14 @@ window.playVideo = function(videoId, hlsMasterUrl, status) {
     hlsInstance.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
       videoPlayer.play().catch(() => {});
       telemetryRendition.textContent = `Auto (${data.levels.length} ABR levels detected)`;
+      if (playerResolutionBadge) playerResolutionBadge.textContent = `Auto (${data.levels.length} tiers)`;
     });
 
     hlsInstance.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
       const level = hlsInstance.levels[data.level];
+      telemetryRendition.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)} kbps)`;
+      if (playerResolutionBadge) playerResolutionBadge.textContent = `${level.height}p · ${Math.round(level.bitrate / 1000)} kbps`;
+    });
       telemetryRendition.textContent = `${level.height}p (${Math.round(level.bitrate / 1000)} kbps)`;
     });
 
